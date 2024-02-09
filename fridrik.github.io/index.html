@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<!--
+	Photon by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Friðrik Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRgEnyOHRvVz5zft+mU/2Dg4T+g9z4E6+45QFubcf" crossorigin="anonymous">
+		<style>
+			.image-container {
+				display: flex;
+				justify-content: flex-start;
+			}
+		
+			.image {
+				max-width: 100%; /* Ensure the image doesn't exceed its container width */
+			}
+			
+			
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+				<div class="inner">
+					<span class="Friðrik Þór Bjarnason"></span>
+					<h1>Hi, I'm <strong>Friðrik Þór Bjarnason</strong> <br />
+					 </h1>
+					<ul class="actions special">
+						<li><a href="#one" class="button scrolly">About me</a></li>
+						<li><a href="#two" class="button scrolly">Skills Overview</a></li>
+						<li><a href="#three" class="button scrolly">Examples of My Work</a></li>
+					</ul>
+				</div>
+			</section>
+
+		<!-- One -->
+			<section id="one" class="main style1">
+				<div class="container">
+					<div class="row gtr-150">
+						<div class="col-6 col-12-medium">
+							<header class="major">
+								<h2>About me</h2>
+							</header>
+							<p> I will be graduating from the University of Iceland in February with a master's degree in
+								applied statistics. I have successfully completed all my courses, earning a first-class
+								grade. Reloceted to Zürich on January 9th with my girlfriend, who is studying fine arts at
+								ZHdK. I am seeking opportunities to gain experience in the field of data science and
+								analytics in Zürich.
+								Given that Iceland is part of the EFTA countries, I have the right to enter, live, and work
+								in Switzerland without complications.</p>
+						</div>
+						<div class="col-6 col-12-medium imp-medium">
+							<span class="image fit"><img src="images/me.jpg" alt="" /></span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		<!-- Two -->
+<section id="two" class="main style2">
+    <div class="container">
+        <div class="row">
+            <!-- First column with the image -->
+            <div class="col-6 col-12-medium">
+                <!-- Replace with your image -->
+                <img src="images/mynd2.png" alt="Your Image" class="image" />
+            </div>
+            <!-- Second column with the text -->
+            <div class="col-6 col-12-medium">
+                <header class="major">
+                    <h2>Skills Overview</h2>
+                </header>
+                <p>
+                    My academic journey has equipped me with a strong understanding of analytical subjects,
+                    preparing me for data-focused projects. 
+                    I can efficiently organize, analyze, and create visualizations for data. 
+                    Furthermore, I have experience with various statistical tests and prediction models.
+                    With my background in psychology, I am skilled in survey design and understanding human behavior, 
+                    providing valuable insights for data analysis.
+                    Keen to beef up my data skills, I'm currently diving into programming Shiny apps with R. 
+                    An internship seems like a great opportunity to learn more and bring some fresh ideas to a new workplace.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Three -->
+<section id="three" class="main style1 special">
+    <div class="container">
+        <header class="major">
+            <h2>Examples of My Work</h2>
+        </header>
+        <div class="row gtr-150">
+
+            <!-- Project 1 -->
+            <div class="col-4 col-12-medium">
+                <a href="https://app.powerbi.com/reportEmbed?reportId=abada1df-8fff-4c43-ad1c-70b455e11842&autoAuth=true&ctid=09fa5f0e-2118-4656-8529-677ed8fdbe78">
+                    <span class="image fit"><img src="images/rvk2.jpg" alt="" /></span>
+                    <h3>Predicting housing prices in Reykjavík<br> </h3>
+                </a>
+                <p id="moreText1" style="display: none;">
+                    This project, conducted in R, predicted housing prices in Reykjavík. The dataset underwent cleaning, and analyses included variable adjustments and outlier removal. Comparing lasso regression and Random Forest, the latter proved more accurate in forecasting Reykjavík housing prices.
+                </p>
+                <button onclick="showMore('moreText1')">More</button>
+            </div>
+
+			<!-- Project 2 -->
+            <div class="col-4 col-12-medium">
+                <a href="aukaverkfridrik2.html">
+                    <span class="image fit"><img src="images/biomarker.png" alt="" /></span>
+                    <h3>Biomarkers dataset <br>  <br> </h3>
+                </a>
+                <p id="moreText2" style="display: none;">
+                    This project was a short assignment i was given while i was i school. 
+                </p>
+                <button onclick="showMore('moreText2')">More</button>
+            </div>
+
+			<!-- Project 3 -->
+            <div class="col-4 col-12-medium" style="margin-bottom: 30px";>
+                <a href="https://oag11z-frikki94.shinyapps.io/prufw/">
+                    <span class="image fit"><img src="images/biomarker.png" alt="" /></span>
+                    <h3>Shiny dashboard: Traffic accidents in EU <br>  </h3>
+                </a>
+                <p id="moreText3" style="display: none;">
+                    In this project, I present the Traffic Accidents in EU dashboard—an 
+					interactive tool designed for exploring and analyzing data on traffic 
+					accidents within the European Union (EU). The dataset comprises information on EU 
+					countries and the percentage of accidents leading to death categorized by transportation type 
+                </p>
+                <button onclick="showMore('moreText3')">More</button>
+            </div>
+
+            <!-- Project 4 -->
+	
+            <div class="col-4 col-12-medium">
+                <a href="https://app.powerbi.com/reportEmbed?reportId=abada1df-8fff-4c43-ad1c-70b455e11842&autoAuth=true&ctid=09fa5f0e-2118-4656-8529-677ed8fdbe78">
+                    <span class="image fit"><img src="images/vogpic1.jpg" alt="" /></span>
+                    <h3>Cost of living comparison dashboard. <br> </h3>
+                </a>
+                <p id="moreText4" style="display: none;">
+                    After relocating to Zurich, a question that frequently came up was whether it was excessively expensive. I often explain that, while some things are pricier, others are not, like beer. 
+					To better grasp if Zurich is more expensive than Reykjavik, I created a very simple yet effective comparison dashboard in Power BI using data from www.numbeo.com.
+                </p>
+                <button onclick="showMore('moreText4')">More</button>
+            </div>
+
+			<!-- Project 5 -->
+            <div class="col-4 col-12-medium" style="margin-bottom: 30px";>
+                <a href="Friðrik Þór Bjarnason.pdf">
+                    <span class="image fit"><img src="images/bs.png" alt="" /></span>
+                    <h3>Bachelor's Thesis <br> <br> </h3>
+                </a>
+                <p id="moreText5" style="display: none;">
+                    
+                  In my Bachelor's thesis, I conducted a study on the psychological phenomenon 
+				  known as priming. The aim of this research was to explore whether individuals possess
+				   the ability to encode the probability distribution of targets during a visual search 
+				   task. Additionally, the study examined whether these encoded probabilities influence 
+				   the efficacy of priming in visual search.
+                </p>
+                <button onclick="showMore('moreText5')">More</button>
+            </div>
+
+			<!-- Project 6 -->
+            <div class="col-4 col-12-medium" style="margin-bottom: 30px";>
+                <a href="https://oag11z-frikki94.shinyapps.io/prufw/">
+                    <span class="image fit"><img src="images/ms.png" alt="" /></span>
+                    <h3>MAS Thesis <br> <br> </h3>
+                </a>
+                <p id="moreText6" style="display: none;">
+                    In my Master's thesis, I conducted research in collaboration with Statistics Iceland,
+					examining the potential of imputation using available administrative data.
+					The assessment was based on prediction accuracy. 
+					To achieve this, I investigated various multiple imputation approaches as well as other standard prediction methods.
+                </p>
+                <button onclick="showMore('moreText6')">More</button>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<script>
+    function showMore(id) {
+        var moreText = document.getElementById(id);
+
+        if (moreText.style.display === "none") {
+            moreText.style.display = "block";
+        } else {
+            moreText.style.display = "none";
+        }
+    }
+</script>
+
+
+			<!-- Footer -->
+			<section id="footer">
+    			<ul class="icons" style="margin-bottom: 5px;">
+        		<li style="margin-right: 20px;"><a href="https://www.facebook.com/profile.php?id=100002599969235" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+       			<li style="margin-right: 20px;"><a href="tel:+3548693798" class="icon solid alt fa-solid fa-phone"><span class="label">phone</span></a></li>
+       			<li><a href="mailto:fridrik914@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+   				 </ul>
+				</section>
+
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
