@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEF Flights: API → BigQuery → Looker Studio</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRgEnyOHRvVz5zft+mU/2Dg4T+g9z4E6+45QFubcf" crossorigin="anonymous">
+    <style>
+        body { background-color: #f4f4f4; }
+        .banner {
+            background-color: black; color: white; padding: 15px; margin: 20px 0;
+            font-size: 20px; border-radius: 5px; text-align: center;
+        }
+        .image-container2 { margin: 20px 0; text-align: center; }
+        .image-container2 img {
+            border: 2px solid #ccc; border-radius: 8px; width: 100%; height: auto; max-width: 800px;
+        }
+        h2, h3, h4 { margin-top: 20px; }
+        p { font-size: 16px; margin-top: 10px; }
+        a.button-like, a.back-link {
+            display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007BFF;
+            color: white; text-decoration: none; border-radius: 4px;
+        }
+        a.button-like:hover, a.back-link:hover { background-color: #0056b3; }
+
+        /* Responsive iframe wrapper (16:9) */
+        .embed-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%;
+            border-radius: 8px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border: 1px solid #e9e9e9;
+        }
+        .embed-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        }
+
+        .container {
+            max-width: 1000px; margin: 0 auto; padding: 0 16px 40px;
+        }
+        .kpi-list { text-align: left; margin: 0 auto; max-width: 800px; }
+        .kpi-list li { margin: 6px 0; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <!-- Header -->
+    <section id="header">
+        <div class="inner">
+            <span class="Friðrik Þór Bjarnason"></span>
+            <h1>KEF Flights: API → BigQuery → Looker Studio</h1>
+            <h3 style="text-align:center; margin: 0 auto; max-width: 800px;">
+                Built an automated pipeline on Google Cloud that ingests KEF Airport flight data via API into BigQuery
+                and powers a daily-refreshed Looker Studio dashboard tracking <em>punctuality, delays, and cancellations</em> by airline.
+            </h3>
+            <ul class="actions special">
+                <li><a href="index.html" class="button scrolly">Back to home page</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- Project overview -->
+        <div class="image-container2" style="text-align:left;">
+            <h2><strong>Project Overview</strong></h2>
+            <p>
+                End-to-end Google Cloud pipeline: a Cloud Run Job (Python) fetches yesterday’s departures from the KEF Airport API each morning at 06:00 Europe/Zurich,
+                standardizes timestamps, de-duplicates by <code>flightId</code>, derives delay metrics, and appends to a DATE-partitioned BigQuery table.
+                An enriched view exposes daily KPIs used by the dashboard below.
+            </p>
+            <ul class="kpi-list">
+                <li><strong>KPIs:</strong> Punctuality (≤16 min), average delay (delayed flights only), measured flights, and <strong>cancellations</strong>.</li>
+                <li><strong>Filters:</strong> Date range, airline (slicer), and route comparisons.</li>
+                <li><strong>Performance:</strong> Partition pruning + caching; idempotent loads to avoid duplicates.</li>
+            </ul>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Embedded dashboard -->
+        <div class="image-container2">
+            <h2><strong>Live Dashboard</strong></h2>
+            <p>Interact with the embedded Looker Studio report. For full-screen view, open it in a new tab.</p>
+
+            <div class="embed-wrapper">
+                <iframe
+                    src="https://lookerstudio.google.com/embed/reporting/ca80fa04-517e-4b68-b3c8-2f9e946f7317/page/RaOXF"
+                    allowfullscreen
+                    loading="lazy"
+                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                </iframe>
+            </div>
+
+            <p>
+                <a class="button-like" href="https://lookerstudio.google.com/reporting/ca80fa04-517e-4b68-b3c8-2f9e946f7317/page/RaOXF" target="_blank" rel="noopener">
+                    Open in new tab
+                </a>
+            </p>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Tech + data sources -->
+        <div class="image-container2" style="text-align:left;">
+            <h2><strong>Stack & Data Sources</strong></h2>
+            <p><strong>Stack:</strong> Google Cloud Run (Jobs), Cloud Scheduler, BigQuery (partitioned), Python (requests, pandas, numpy, google-cloud-bigquery, pyarrow), Looker Studio.</p>
+            <p><strong>Source:</strong> KEF Airport API (<code>/api/flightData</code>) with rolling “yesterday” parameter; enriched daily KPIs in BigQuery view.</p>
+        </div>
+
+        <a class="back-link" href="index.html">Back to Gallery</a>
+    </div>
+
+    <!-- Footer -->
+    <section id="footer">
+        <ul class="icons" style="margin-bottom: 5px;">
+            <li style="margin-right: 20px;"><a href="https://www.facebook.com/profile.php?id=100002599969235" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+            <li style="margin-right: 20px;"><a href="tel:+3548693798" class="icon solid alt fa-solid fa-phone"><span class="label">Phone</span></a></li>
+            <li><a href="mailto:fridrik914@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+        </ul>
+    </section>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>
