@@ -1,132 +1,203 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEF Flights: API → BigQuery → Looker Studio</title>
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRgEnyOHRvVz5zft+mU/2Dg4T+g9z4E6+45QFubcf" crossorigin="anonymous">
-    <style>
-        body { background-color: #f4f4f4; }
-        .banner {
-            background-color: black; color: white; padding: 15px; margin: 20px 0;
-            font-size: 20px; border-radius: 5px; text-align: center;
-        }
-        .image-container2 { margin: 20px 0; text-align: center; }
-        .image-container2 img {
-            border: 2px solid #ccc; border-radius: 8px; width: 100%; height: auto; max-width: 800px;
-        }
-        h2, h3, h4 { margin-top: 20px; }
-        p { font-size: 16px; margin-top: 10px; }
-        a.button-like, a.back-link {
-            display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007BFF;
-            color: white; text-decoration: none; border-radius: 4px;
-        }
-        a.button-like:hover, a.back-link:hover { background-color: #0056b3; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KEF Flights: API → BigQuery → Looker Studio</title>
 
-        /* Responsive iframe wrapper (16:9) */
-        .embed-wrapper {
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%;
-            border-radius: 8px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            border: 1px solid #e9e9e9;
-        }
-        .embed-wrapper iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
-        }
+  <!-- Site styles -->
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRgEnyOHRvVz5zft+mU/2Dg4T+g9z4E6+45QFubcf" crossorigin="anonymous">
 
-        .container {
-            max-width: 1000px; margin: 0 auto; padding: 0 16px 40px;
-        }
-        .kpi-list { text-align: left; margin: 0 auto; max-width: 800px; }
-        .kpi-list li { margin: 6px 0; }
-    </style>
+  <!-- Page-only overrides so only the header is black -->
+  <style>
+    body, body.is-preload { background-color: #f4f4f4 !important; }
+    #header { background-color: #000 !important; }
+
+    /* Page helpers */
+    .image-container2 { margin: 20px 0; text-align: center; }
+    .image-container2 img { border: 2px solid #ccc; border-radius: 8px; width: 100%; height: auto; max-width: 1000px; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 16px 40px; }
+    .kpi-list { text-align: left; margin: 0 auto; max-width: 800px; }
+    .kpi-list li { margin: 6px 0; }
+    .caption { font-size: 14px; color: #888; margin-top: 8px; text-align: center; }
+    /* Responsive iframe wrapper (16:9) */
+    .embed-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%;
+      border-radius: 8px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1px solid #e9e9e9; }
+    .embed-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .button-like, .back-link { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007BFF;
+      color: #fff; text-decoration: none; border-radius: 4px; }
+    .button-like:hover, .back-link:hover { background-color: #0056b3; }
+  </style>
 </head>
 <body class="is-preload">
 
-    <!-- Header -->
-    <section id="header">
-        <div class="inner">
-            <span class="Friðrik Þór Bjarnason"></span>
-            <h1>KEF Flights: API → BigQuery → Looker Studio</h1>
-            <h3 style="text-align:center; margin: 0 auto; max-width: 800px;">
-                Built an automated pipeline on Google Cloud that ingests KEF Airport flight data via API into BigQuery
-                and powers a daily-refreshed Looker Studio dashboard tracking <em>punctuality, delays, and cancellations</em> by airline.
-            </h3>
-            <ul class="actions special">
-                <li><a href="index.html" class="button scrolly">Back to home page</a></li>
-            </ul>
-        </div>
-    </section>
+  <!-- Header (black) -->
+  <section id="header">
+    <div class="inner">
+      <h1>KEF Flights: API → BigQuery → Looker Studio</h1>
+      <h3 style="text-align:center; margin: 0 auto; max-width: 800px;">
+        An automated pipeline on Google Cloud that ingests KEF Airport flight data via API into BigQuery
+        and powers a daily-refreshed Looker Studio dashboard tracking <em>punctuality, delays, and cancellations</em> by airline.
+      </h3>
+      <ul class="actions special">
+        <li><a href="index.html" class="button scrolly">Back to home page</a></li>
+      </ul>
+    </div>
+  </section>
 
-    <div class="container">
+  <div class="container">
 
-        <!-- Project overview -->
-        <div class="image-container2" style="text-align:left;">
-            <h2><strong>Project Overview</strong></h2>
-            <p>
-                End-to-end Google Cloud pipeline: a Cloud Run Job (Python) fetches yesterday’s departures from the KEF Airport API each morning at 06:00 Europe/Zurich,
-                standardizes timestamps, de-duplicates by <code>flightId</code>, derives delay metrics, and appends to a DATE-partitioned BigQuery table.
-                An enriched view exposes daily KPIs used by the dashboard below.
-            </p>
-            <ul class="kpi-list">
-                <li><strong>KPIs:</strong> Punctuality (≤16 min), average delay (delayed flights only), measured flights, and <strong>cancellations</strong>.</li>
-                <li><strong>Filters:</strong> Date range, airline (slicer), and route comparisons.</li>
-                <li><strong>Performance:</strong> Partition pruning + caching; idempotent loads to avoid duplicates.</li>
-            </ul>
-        </div>
-
-        <hr class="divider">
-
-        <!-- Embedded dashboard -->
-        <div class="image-container2">
-            <h2><strong>Live Dashboard</strong></h2>
-            <p>Interact with the embedded Looker Studio report. For full-screen view, open it in a new tab.</p>
-
-            <div class="embed-wrapper">
-                <iframe
-                    src="https://lookerstudio.google.com/embed/reporting/ca80fa04-517e-4b68-b3c8-2f9e946f7317/page/RaOXF"
-                    allowfullscreen
-                    loading="lazy"
-                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
-                </iframe>
-            </div>
-
-            <p>
-                <a class="button-like" href="https://lookerstudio.google.com/reporting/ca80fa04-517e-4b68-b3c8-2f9e946f7317/page/RaOXF" target="_blank" rel="noopener">
-                    Open in new tab
-                </a>
-            </p>
-        </div>
-
-        <hr class="divider">
-
-        <!-- Tech + data sources -->
-        <div class="image-container2" style="text-align:left;">
-            <h2><strong>Stack & Data Sources</strong></h2>
-            <p><strong>Stack:</strong> Google Cloud Run (Jobs), Cloud Scheduler, BigQuery (partitioned), Python (requests, pandas, numpy, google-cloud-bigquery, pyarrow), Looker Studio.</p>
-            <p><strong>Source:</strong> KEF Airport API (<code>/api/flightData</code>) with rolling “yesterday” parameter; enriched daily KPIs in BigQuery view.</p>
-        </div>
-
-        <a class="back-link" href="index.html">Back to Gallery</a>
+    <!-- Project overview -->
+    <div class="image-container2" style="text-align:left;">
+      <h2><strong>Project Overview</strong></h2>
+      <p>
+        End-to-end Google Cloud pipeline: a Cloud Run Job (Python) fetches yesterday’s KEF departures
+        every morning at 06:00 Europe/Zurich, standardizes timestamps, and appends to a 
+        date-partitioned BigQuery table. An enriched BigQuery view derives delay 
+        and cancellation metrics that power the dashboard below.
+      </p>
+      <ul class="kpi-list">
+        <li><strong>KPIs:</strong> Punctuality (≤16 min), average delay (delayed flights only) and <strong>cancellations</strong>.</li>
+        <li><strong>Filters:</strong> Date range and airline slicer.</li>
+        <li><strong>Performance:</strong> Partition pruning + caching; idempotent loads to avoid duplicates.</li>
+      </ul>
     </div>
 
-    <!-- Footer -->
-    <section id="footer">
-        <ul class="icons" style="margin-bottom: 5px;">
-            <li style="margin-right: 20px;"><a href="https://www.facebook.com/profile.php?id=100002599969235" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-            <li style="margin-right: 20px;"><a href="tel:+3548693798" class="icon solid alt fa-solid fa-phone"><span class="label">Phone</span></a></li>
-            <li><a href="mailto:fridrik914@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-        </ul>
-    </section>
+    <hr class="divider" />
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
+    <!-- Pipeline & Data Model -->
+    <div class="image-container2" style="text-align:left;">
+      <h2><strong>Pipeline & Data Model</strong></h2>
 
+      <h3>How the pipeline runs daily</h3>
+      <ul class="kpi-list">
+        <li><strong>Cloud Run service (Python):</strong> Calls <code>/api/flightData</code> with a rolling “yesterday” parameter, flattens/normalizes the JSON, writes a daily CSV to GCS, then loads into BigQuery via <code>load_table_from_uri</code> with <code>WRITE_APPEND</code>.</li>
+        <li><strong>Cloud Scheduler:</strong> Triggers the job every day at <strong>06:00 Europe/Zurich</strong>.</li>
+        <li><strong>BigQuery:</strong> Table <code>keflavik-flights.KefAirport.flights_history</code>; an enriched view computes new columns such as delay minutes, punctuality for the dashboard.</li>
+      </ul>
+
+      <div class="diagram" aria-label="Data flow: API → Cloud Run → BigQuery → Looker Studio">
+  <svg viewBox="0 0 1720 320" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; height:auto; max-width:1400px">
+    <defs>
+      <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="3.5" orient="auto">
+        <path d="M0,0 L0,7 L10,3.5 z" fill="#475569"/>
+      </marker>
+    </defs>
+
+    <!-- Boxes (y=150 for more headroom) -->
+    <g fill="#f7fafc" stroke="#cbd5e1" stroke-width="2">
+      <rect x="40"   y="150" width="240" height="74" rx="12" ry="12"/>
+      <rect x="400"  y="150" width="240" height="74" rx="12" ry="12"/>
+      <rect x="760"  y="150" width="240" height="74" rx="12" ry="12"/>
+      <rect x="1120" y="150" width="240" height="74" rx="12" ry="12"/>
+      <rect x="1480" y="150" width="240" height="74" rx="12" ry="12"/>
+    </g>
+
+    <!-- Labels -->
+    <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, 'Helvetica Neue', sans-serif" fill="#111" text-anchor="middle">
+      <!-- centers at y = 187 -->
+      <text x="160"  y="182" font-size="20">KEF Airport API</text>
+      <text x="160"  y="204" font-size="18">/api/flightData</text>
+
+      <text x="520"  y="182" font-size="20">Cloud Run Job</text>
+      <text x="520"  y="204" font-size="18">(Python)</text>
+
+      <text x="880"  y="180" font-size="20">BigQuery</text>
+      <text x="880"  y="202" font-size="18">flights_history</text>
+
+      <text x="1240" y="182" font-size="20">BQ View</text>
+      <text x="1240" y="204" font-size="18">v_flights_enriched</text>
+
+      <text x="1600" y="182" font-size="20">Looker Studio</text>
+      <text x="1600" y="204" font-size="18">Dashboard</text>
+    </g>
+
+    <!-- Cloud Scheduler (higher up; longer drop arrow) -->
+    <rect x="400" y="40" width="240" height="64" rx="12" ry="12" fill="#eef2ff" stroke="#cbd5e1"/>
+    <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, 'Helvetica Neue', sans-serif" fill="#111" text-anchor="middle">
+      <text x="520" y="70" font-size="20">Cloud Scheduler</text>
+      <text x="520" y="92" font-size="18">06:00 daily</text>
+    </g>
+
+    <!-- Longer arrows (centered at y=187) -->
+    <g stroke="#475569" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <line x1="280"  y1="187" x2="400"  y2="187"/>
+      <line x1="640"  y1="187" x2="760"  y2="187"/>
+      <line x1="1000" y1="187" x2="1120" y2="187"/>
+      <line x1="1360" y1="187" x2="1480" y2="187"/>
+      <!-- vertical drop from scheduler to Cloud Run -->
+      <line x1="520"  y1="104" x2="520"  y2="150"/>
+    </g>
+  </svg>
+</div>
+
+
+
+
+
+
+      <h3>How punctuality & delays are computed</h3>
+      <ul class="kpi-list">
+        <li><strong>Delay (min):</strong> <code>raw_delay_min = DATETIME_DIFF(actual_dt, sched_dt, MINUTE)</code></li>
+        <li><strong>Delayed flag:</strong> <code>Delayed = (raw_delay_min &gt; 0)</code> (only flights with both times are measured)</li>
+        <li><strong>Punctual (≤16):</strong> on-time when <code>status != 'CNL'</code> and <code>DATETIME_DIFF(actual_dt, sched_dt, MINUTE) ≤ 16</code></li>
+        <li><strong>Cancellations:</strong> <code>status = 'CNL'</code> → treated as not punctual (excluded from on-time numerator)</li>
+        <li><strong>Midnight rollover fix:</strong> if actual time is just after midnight while scheduled is late evening, shift <code>actual_dt</code> to next day.</li>
+      </ul>
+
+      <img src="images/bigquery.png" alt="BigQuery view for KEF flights enriched KPIs" />
+      <div class="caption">BigQuery view definition showing time normalization, cancellation logic, delay calculation, and ≤16-minute punctuality rule.</div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Embedded dashboard -->
+    <div class="image-container2">
+      <h2><strong>Live Dashboard</strong></h2>
+      <p>Interact with the embedded Looker Studio report. For full-screen view, open it in a new tab.</p>
+
+      <div class="embed-wrapper">
+        <iframe width="600" height="443" src="https://lookerstudio.google.com/embed/reporting/ca80fa04-517e-4b68-b3c8-2f9e946f7317/page/RaOXF" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+
+        </iframe>
+      </div>
+
+      <p>
+        <a class="button-like" href="https://lookerstudio.google.com/reporting/ca80fa04-517e-4b68-b3c8-2f9e946f7317/page/RaOXF" target="_blank" rel="noopener">
+          Open in new tab
+        </a>
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Stack & sources -->
+    <div class="image-container2" style="text-align:left;">
+      <h2><strong>Stack & Data Sources</strong></h2>
+      <p><strong>Stack:</strong> Google Cloud Run (Jobs), Cloud Scheduler, BigQuery (partitioned), Python (<code>requests</code>, <code>pandas</code>, <code>numpy</code>, <code>google-cloud-bigquery</code>, <code>pyarrow</code>), Looker Studio.</p>
+      <p><strong>Source:</strong> KEF Airport API (<code>/api/flightData</code>) with rolling “yesterday” parameter; enriched KPIs in a BigQuery view.</p>
+    </div>
+
+    <a class="back-link" href="index.html">Back to Gallery</a>
+  </div>
+
+  <!-- Footer -->
+  <section id="footer">
+    <ul class="icons" style="margin-bottom: 5px;">
+      <li style="margin-right: 20px;"><a href="https://www.facebook.com/profile.php?id=100002599969235" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+      <li style="margin-right: 20px;"><a href="tel:+3548693798" class="icon solid alt fa-solid fa-phone"><span class="label">Phone</span></a></li>
+      <li><a href="mailto:fridrik914@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+    </ul>
+  </section>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
